@@ -1,0 +1,6 @@
+if not taking proxy URL Axios request failed....ERR_BAD_REQUEST
+1. Check the routes...
+2. install cors
+3. if not work all clean then restart the react server...
+
+note: paste proxy URL and then Start the Server
