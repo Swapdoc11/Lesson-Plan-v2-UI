@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate()
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
@@ -14,10 +17,13 @@ const Login = () => {
     await axios
       .post("/auth/login", loginData)
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
+        if(response.status == 200) navigate('/dashboard')
+
+        
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data.message);
       });
   };
   return (
