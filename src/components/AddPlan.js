@@ -2,20 +2,21 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 
 import { userInfo } from "../pages/Dashboard";
-const AddPlan = () => {
+const AddPlan = (props) => {
+    console.warn(props.data);
   const { user } = useContext(userInfo);
-  const [collectedData, setCollecedtData] = useState({
+  const [collectedData, setCollectedtData] = useState({
     subject: "",
     topic: "",
     teaching_aids: "",
   });
   const [validation, setValidation] = useState();
   const handleChange = (e) => {
-    setCollecedtData({ ...collectedData, [e.target.name]: e.target.value });
+    setCollectedtData({ ...collectedData, [e.target.name]: e.target.value });
   };
   const submitPlan = async (e) => {
     e.preventDefault();
-    console.log(collectedData);
+    //console.log(collectedData);
     if (
       !collectedData.subject ||
       collectedData.subject === "None" ||
@@ -46,6 +47,7 @@ const AddPlan = () => {
             onBlur={handleChange}
             autoFocus
             required={true}
+            value={props?.data?.subject}
           >
             <option>None</option>
             <option>Math</option>
@@ -61,7 +63,9 @@ const AddPlan = () => {
             name="topic"
             className="form-control"
             onBlur={handleChange}
+            value = {props?.data?.topic}
             required
+
           />
         </div>
         <div className="mb-3">
@@ -71,6 +75,7 @@ const AddPlan = () => {
             name="teaching_aids"
             className="form-control"
             onBlur={handleChange}
+            value = {props?.data?.teaching_aids}
             required
           />
         </div>

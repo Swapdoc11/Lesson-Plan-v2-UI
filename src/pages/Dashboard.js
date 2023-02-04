@@ -15,24 +15,20 @@ const Dashboard = () => {
     <userInfo.Provider value={{ user: user.state.userData, color: "red" }}>
       <MainLayout>
         <div className="row">
-          <div className="col-sm-2">
+          <div className="col">
             <div className="mb-3">
               <button
                 className="btn btn-primary btn-lg"
                 onClick={() => setComponent("AddPlan")}
               >
                 Add Plan
-              </button>
-            </div>
-            <div className="mb-3">
+              </button> &nbsp;
               <button
                 className="btn btn-primary btn-lg"
                 onClick={() => setComponent("EditPlan")}
               >
                 Edit Plan
-              </button>
-            </div>
-            <div className="mb-3">
+              </button>&nbsp;
               <button
                 className="btn btn-primary btn-lg"
                 onClick={() => setComponent("DeletePlan")}
@@ -40,11 +36,19 @@ const Dashboard = () => {
                 Delete Plan
               </button>
             </div>
+            <div className="mb-3">
+              
+            </div>
+            <div className="mb-3">
+             
+            </div>
           </div>
+          </div>
+          <div className="row">
           <div className="col">
             {
               {
-                AddPlan: <AddPlan />,
+               // AddPlan: <AddPlan />,
                 EditPlan: <EditPlan />,
                 DeletePlan: <DeletePlan />
               }[component]
