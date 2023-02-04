@@ -1,8 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 const Login = () => {
+ 
+ 
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -18,9 +21,12 @@ const Login = () => {
       .post("/auth/login", loginData)
       .then((response) => {
         console.log(response);
-        if(response.status == 200) navigate('/dashboard')
-
-        
+        if(response.status === 200){ 
+          console.log(response.data.details)
+         
+          navigate('/dashboard',{state:{userData:response.data}})
+        }
+       
       })
       .catch((err) => {
         console.log(err.response.data.message);

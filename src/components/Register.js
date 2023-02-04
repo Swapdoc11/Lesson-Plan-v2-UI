@@ -6,17 +6,32 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    subject: "",
   });
+  const [validation, setValidation] = useState();
   const handleChange = async (e) => {
     setRegUserData({ ...regUserData, [e.target.name]: e.target.value });
   };
   const registerUser = async (e) => {
     e.preventDefault();
     console.log(regUserData);
-    await axios
-      .post("/auth/register", regUserData)
-      .then((response) => {console.log(response)})
-      .catch((err) => {console.log(err)});
+    if (
+      !regUserData.name ||
+      !regUserData.email ||
+      !regUserData.subject ||
+      !regUserData.password
+    ) {
+      setValidation("Please fill all * Fields");
+    } else {
+      await axios
+        .post("/auth/register", regUserData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   return (
     <div className="col">
@@ -54,10 +69,26 @@ const Register = () => {
           />
         </div>
         <div className="mb-3">
+          <label className="form-label">Subject</label>
+          <select
+            name="subject"
+            className="form-select"
+            required={true}
+            onBlur={handleChange}
+          >
+            <option>None</option>
+            <option>Math</option>
+            <option>Hindi</option>
+            <option>Physics</option>
+            <option>Computer</option>
+          </select>
+        </div>
+        <div className="mb-3">
           <button type="submit" className="btn btn-primary ">
             Register
           </button>
         </div>
+        <div className="mb-3">{validation}</div>
       </form>
     </div>
   );
