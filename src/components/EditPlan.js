@@ -1,15 +1,17 @@
-import axios from "axios";
+
 import moment from "moment/moment";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
+import useFetch from "../hooks/useFetch";
 import { userInfo } from "../pages/Dashboard";
 import AddPlan from "./AddPlan";
 
 const EditPlan = () => {
   const { user } = useContext(userInfo);
-  const [plans, setPlans] = useState([]);
   const [editPlan,setEditPlan] = useState()
+  const {data} = useFetch(`/plan/getPlans/${user.details._id}`)
+  console.log(data);
 
-  useEffect(() => {
+ /* useEffect(() => {
     const fetchPlans = async () => {
       const res = await axios.get(`/plan/getPlans/${user.details._id}`)
       
@@ -17,7 +19,7 @@ const EditPlan = () => {
         setPlans(res.data.planList);
     };
     fetchPlans()
-  }, [user.details._id]);
+  }, [user.details._id]);*/
 
   return (
     <div className="row">
@@ -34,7 +36,7 @@ const EditPlan = () => {
           </thead>
           <tbody>
           {
-            plans.map((plan,i)=>(
+             data?.planList?.map((plan,i)=>(
                 <tr key={i}>
                     <td>{i+1}</td>
                     <td>{moment(plan.date).format('DD/MM/YYYY')}</td>
@@ -49,7 +51,7 @@ const EditPlan = () => {
         </table>
       </div>
       <div className="col">
-        <AddPlan data={editPlan} />
+      <AddPlan data={editPlan || ""} />
       </div>
     </div>
   );

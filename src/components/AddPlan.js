@@ -1,22 +1,26 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
+//import usePost from "../hooks/usePost";
 
 import { userInfo } from "../pages/Dashboard";
 const AddPlan = (props) => {
-    console.warn(props.data);
+ // console.warn(props.data);
+
   const { user } = useContext(userInfo);
   const [collectedData, setCollectedtData] = useState({
-    subject: "",
-    topic: "",
-    teaching_aids: "",
+    subject: props?.data?.subject || "",
+    topic: props?.data?.topic || "",
+    teaching_aids: props?.data?.teaching_aids || "",
   });
   const [validation, setValidation] = useState();
   const handleChange = (e) => {
     setCollectedtData({ ...collectedData, [e.target.name]: e.target.value });
+    // console.log(collectedData);
   };
   const submitPlan = async (e) => {
     e.preventDefault();
-    //console.log(collectedData);
+   
+
     if (
       !collectedData.subject ||
       collectedData.subject === "None" ||
@@ -25,14 +29,27 @@ const AddPlan = (props) => {
     ) {
       setValidation("Please Fill All Fields");
     } else {
-      await axios
-        .post(`plan/addPlan/${user.details._id}`, collectedData)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      //const {dataPost,loadingPost,errorPost}= usePost(`plan/addPlan/${user.details._id}`,collectedData)
+      // console.log(dataPost);
+      if (!props.data) {
+        await axios
+          .post(`plan/addPlan/${user.details._id}`, collectedData)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        await axios
+          .put(`plan/updatePlan/${props.data._id}`,collectedData)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   };
 
@@ -44,10 +61,8 @@ const AddPlan = (props) => {
           <select
             name="subject"
             className="form-select"
-            onBlur={handleChange}
-            autoFocus
-            required={true}
-            value={props?.data?.subject}
+            onChange={(e) => handleChange(e)}
+            defaultValue={props?.data?.subject || '' }
           >
             <option>None</option>
             <option>Math</option>
@@ -62,10 +77,9 @@ const AddPlan = (props) => {
             type="text"
             name="topic"
             className="form-control"
-            onBlur={handleChange}
-            value = {props?.data?.topic}
+            defaultValue={props?.data?.topic}
+            onChange={(e) => handleChange(e)}
             required
-
           />
         </div>
         <div className="mb-3">
@@ -74,8 +88,8 @@ const AddPlan = (props) => {
             type="text"
             name="teaching_aids"
             className="form-control"
-            onBlur={handleChange}
-            value = {props?.data?.teaching_aids}
+            defaultValue={props?.data?.teaching_aids }
+            onChange={(e) => handleChange(e)}
             required
           />
         </div>
