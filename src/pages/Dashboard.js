@@ -1,56 +1,35 @@
 import React, { createContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import DeletePlan from "../components/DeletePlan";
-import EditPlan from "../components/EditPlan";
-
+import Plan from "../components/Plan";
 import MainLayout from "../layout/MainLayout";
 
 export const userInfo = createContext();
 const Dashboard = () => {
   const user = useLocation();
   const [component, setComponent] = useState("AddPlan");
-
+  console.log(user);
   return (
-    <userInfo.Provider value={{ user: user.state.userData, color: "red" }}>
+    <userInfo.Provider value={{ user: user.state.userData }}>
       <MainLayout>
         <div className="row">
           <div className="col">
             <div className="mb-3">
               <button
                 className="btn btn-primary btn-lg"
-                onClick={() => setComponent("AddPlan")}
+                onClick={() => setComponent("Plan")}
               >
-                Add Plan
-              </button> &nbsp;
-              <button
-                className="btn btn-primary btn-lg"
-                onClick={() => setComponent("EditPlan")}
-              >
-                Edit Plan
-              </button>&nbsp;
-              <button
-                className="btn btn-primary btn-lg"
-                onClick={() => setComponent("DeletePlan")}
-              >
-                Delete Plan
+                Plan
               </button>
-            </div>
-            <div className="mb-3">
-              
-            </div>
-            <div className="mb-3">
-             
+              &nbsp;
             </div>
           </div>
-          </div>
-          <div className="row">
+        </div>
+        <div className="row">
           <div className="col">
             {
               {
-               // AddPlan: <AddPlan />,
-                EditPlan: <EditPlan />,
-                DeletePlan: <DeletePlan />
+                Plan: <Plan />,
               }[component]
             }
           </div>

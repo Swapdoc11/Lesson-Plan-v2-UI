@@ -62,7 +62,8 @@ const AddPlan = (props) => {
             name="subject"
             className="form-select"
             onChange={(e) => handleChange(e)}
-            defaultValue={props?.data?.subject || '' }
+            defaultChecked={props?.data?.subject}
+            
           >
             <option>None</option>
             <option>Math</option>

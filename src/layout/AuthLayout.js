@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { userInfo } from "../pages/Dashboard";
-const MainLayout = ({ children }) => {
-  const { user } = useContext(userInfo);
-  console.log(user);
+
+const AuthLayout = ({ children }) => {
+
   return (
     <>
       <div className="mb-3">
@@ -22,4 +21,4 @@ const MainLayout = ({ children }) => {
     </>
   );
 };
-export default MainLayout;
+export default AuthLayout;

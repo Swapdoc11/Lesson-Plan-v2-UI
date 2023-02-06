@@ -3,8 +3,8 @@ import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const Login = () => {
- 
+const Login = ({setUserInfo}) => {
+
  
   const [loginData, setLoginData] = useState({
     email: "",
@@ -16,20 +16,21 @@ const Login = () => {
   };
   const loginUser = async(e) => {
     e.preventDefault()
-    console.log(loginData);
-    await axios
+   
+    const result= await axios
       .post("/auth/login", loginData)
       .then((response) => {
         console.log(response);
+        
         if(response.status === 200){ 
           console.log(response.data.details)
-         
+          setUserInfo(response.data)
           navigate('/dashboard',{state:{userData:response.data}})
         }
        
       })
       .catch((err) => {
-        console.log(err.response.data.message);
+        console.log(err.response);
       });
   };
   return (

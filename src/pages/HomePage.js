@@ -1,21 +1,25 @@
 import React from "react";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import AuthLayout from "../layout/AuthLayout";
+
 import MainLayout from "../layout/MainLayout";
 
 const HomePage = () => {
   return (
-    <MainLayout>
+    <AuthLayout>
+
       <div className="row mb-3">
         <div className="col">
-          <Login />
+          <Login  />
         </div>
-      
+
         <div className="col">
           <Register />
         </div>
       </div>
-    </MainLayout>
+    </AuthLayout>
+    
   );
 };
 
