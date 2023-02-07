@@ -12,6 +12,9 @@ const MainLayout = ({ children }) => {
             <Link className="navbar-brand" to="/">
               Lesson Plan v2
             </Link>
+            <Link className="navbar-brand" to="/plan">
+              Plan
+            </Link>
           </div>
         </nav>
         <br />

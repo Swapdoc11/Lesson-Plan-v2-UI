@@ -3,7 +3,7 @@ import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const Login = ({setUserInfo}) => {
+const Login = () => {
 
  
   const [loginData, setLoginData] = useState({
@@ -17,14 +17,14 @@ const Login = ({setUserInfo}) => {
   const loginUser = async(e) => {
     e.preventDefault()
    
-    const result= await axios
+     await axios
       .post("/auth/login", loginData)
       .then((response) => {
         console.log(response);
         
         if(response.status === 200){ 
           console.log(response.data.details)
-          setUserInfo(response.data)
+        
           navigate('/dashboard',{state:{userData:response.data}})
         }
        

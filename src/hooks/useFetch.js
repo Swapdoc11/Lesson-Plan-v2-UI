@@ -10,17 +10,14 @@ const useFetch = (url) => {
     const fetch = async () => {
       setLoading(true);
       try {
-       const resp= await axios
+        await axios
           .get(url)
           .then((res) => {
             setData(res.data);
-            console.log(res.data);
-        })
-        .catch((err) => {
+          })
+          .catch((err) => {
             setError(err);
-        });
-        console.log(resp.data);
-
+          });
       } catch (error) {
         console.log(error);
       }
@@ -44,7 +41,7 @@ const useFetch = (url) => {
     }
     setLoading(false);
   };
-  return {data,loading,error,refetch}
+  return { data, loading, error, refetch };
 };
 
 export default useFetch;

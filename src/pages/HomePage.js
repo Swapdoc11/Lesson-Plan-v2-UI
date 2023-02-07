@@ -3,7 +3,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import AuthLayout from "../layout/AuthLayout";
 
-import MainLayout from "../layout/MainLayout";
+
 
 const HomePage = () => {
   return (

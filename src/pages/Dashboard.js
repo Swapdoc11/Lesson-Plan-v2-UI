@@ -1,40 +1,60 @@
 import React, { createContext, useState } from "react";
 import { useLocation } from "react-router-dom";
+import Admin from "../components/Admin";
 
 import Plan from "../components/Plan";
-import MainLayout from "../layout/MainLayout";
+import Subjects from "../components/Subjects";
+import Setting from "./Setting";
 
 export const userInfo = createContext();
 const Dashboard = () => {
   const user = useLocation();
-  const [component, setComponent] = useState("AddPlan");
-  console.log(user);
+  console.log(user.state.userData);
+  const [component, setComponent] = useState("Plan");
+
   return (
     <userInfo.Provider value={{ user: user.state.userData }}>
-      <MainLayout>
-        <div className="row">
-          <div className="col">
-            <div className="mb-3">
+      <div className="mb-3">
+        <nav
+          className="navbar-nav navbar-expand-lg bg-dark bg-body-tertiary"
+          data-bs-theme="dark"
+        >
+          <div className="container">
+            <button
+              className="btn btn-dark"
+              onClick={(e) => setComponent("Plan")}
+            >
+              Plan
+            </button>
+            {user.state.userData.details.isAdmin ? (
               <button
-                className="btn btn-primary btn-lg"
-                onClick={() => setComponent("Plan")}
+                className="btn btn-dark"
+                onClick={(e) => setComponent("Admin")}
               >
-                Plan
+                Admin Panel
               </button>
-              &nbsp;
-            </div>
+            ) : (
+              ""
+            )}
+            <button
+              className="btn btn-dark"
+              onClick={(e) => setComponent("Setting")}
+            >
+              Setting
+            </button>
           </div>
-        </div>
-        <div className="row">
-          <div className="col">
+        </nav>
+        <br />
+        <div className="container">
+          {
             {
-              {
-                Plan: <Plan />,
-              }[component]
-            }
-          </div>
+              Setting: <Setting />,
+              Admin: <Admin />,
+              Plan: <Plan />,
+            }[component]
+          }
         </div>
-      </MainLayout>
+      </div>
     </userInfo.Provider>
   );
 };

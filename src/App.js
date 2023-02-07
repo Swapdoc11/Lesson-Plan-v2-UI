@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import Dashboard from "./pages/Dashboard";
 
 import Plan from "./components/Plan"
+import Update from "./pages/Update";
 
 function App() {
  
@@ -18,6 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/plan" element={<Plan />} />
+          <Route path="/update" element={<Update/>} />
         </Routes>
 
       </BrowserRouter>
