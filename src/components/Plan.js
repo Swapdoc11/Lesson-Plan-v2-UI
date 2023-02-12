@@ -2,14 +2,15 @@ import axios from "axios";
 import moment from "moment";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserInformation } from "../context/AuthContext";
 import useFetch from "../hooks/useFetch";
-import { userInfo } from "../pages/Dashboard";
+
 
 const Plan = () => {
-  const { user } = useContext(userInfo);
+  const { user } = useContext(UserInformation);
 
   const { data, loading, refetch } = useFetch(
-    `/plan/getPlans/${user.details._id}`
+    `/plan/getPlans/${user._id}`
   );
   console.log(data);
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Plan = () => {
   const submit = async () => {
     console.log(planData);
     await axios
-      .post(`/plan/addPlan/${user.details._id}`, planData)
+      .post(`/plan/addPlan/${user._id}`, planData)
       .then((res) => {
         console.log("Response Plan.js ", res);
         if (res) refetch();
@@ -38,7 +39,7 @@ const Plan = () => {
     navigate(place, { state: plan });
   };
   const deletePlan = async (planId) => {
-    await axios.delete(`/plan/deletePlan/${user.details._id}/${planId}`).then((res)=>{
+    await axios.delete(`/plan/deletePlan/${user._id}/${planId}`).then((res)=>{
         console.log(res.data);
         refetch()
     }).catch((err)=>{

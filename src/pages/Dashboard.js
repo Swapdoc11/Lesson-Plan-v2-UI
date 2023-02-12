@@ -1,61 +1,82 @@
-import React, { createContext, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useContext, useState } from "react";
+
 import Admin from "../components/Admin";
 
 import Plan from "../components/Plan";
-import Subjects from "../components/Subjects";
+import { UserInformation } from "../context/AuthContext";
+
 import Setting from "./Setting";
 
-export const userInfo = createContext();
 const Dashboard = () => {
-  const user = useLocation();
-  console.log(user.state.userData);
+  const { user } = useContext(UserInformation);
+  console.warn(user);
   const [component, setComponent] = useState("Plan");
 
   return (
-    <userInfo.Provider value={{ user: user.state.userData }}>
-      <div className="mb-3">
-        <nav
-          className="navbar-nav navbar-expand-lg bg-dark bg-body-tertiary"
-          data-bs-theme="dark"
-        >
-          <div className="container">
-            <button
-              className="btn btn-dark"
-              onClick={(e) => setComponent("Plan")}
-            >
-              Plan
-            </button>
-            {user.state.userData.details.isAdmin ? (
+    <div className="mb-3">
+      <nav className="navbar-nav bg-dark bg-body-tertiary" data-bs-theme="dark">
+        <div className="container">
+          <div className="row">
+            <div className="col">
               <button
                 className="btn btn-dark"
-                onClick={(e) => setComponent("Admin")}
+                onClick={(e) => setComponent("Plan")}
               >
-                Admin Panel
+                Plan
               </button>
-            ) : (
-              ""
-            )}
-            <button
-              className="btn btn-dark"
-              onClick={(e) => setComponent("Setting")}
-            >
-              Setting
-            </button>
+              {user.isAdmin ? (
+                <button
+                  className="btn btn-dark"
+                  onClick={(e) => setComponent("Admin")}
+                >
+                  Admin Panel
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="col">
+             
+              <div style={{ float: "right" }}>
+                <button
+                  className="btn btn-dark"
+                  onClick={(e) => setComponent("Setting")}
+                >
+                 Hi {user.name} 
+                </button>
+              </div>
+              <div style={{ float: "right" }}>
+                <button
+                  className="btn btn-dark"
+                  onClick={(e) => setComponent("Setting")}
+                >
+                 Setting
+                </button>
+              </div>
+              <div style={{ float: "right" }}>
+                &nbsp;
+                <button
+                  className="btn btn-dark"
+                  onClick={(e) => setComponent("Logout")}
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
           </div>
-        </nav>
-        <br />
-        <div className="container">
-          {
-            {
-              Setting: <Setting />,
-              Admin: <Admin />,
-              Plan: <Plan />,
-            }[component]
-          }
         </div>
+      </nav>
+      <br />
+      <div className="container">
+        {
+          {
+            Setting: <Setting />,
+            Admin: <Admin />,
+            Plan: <Plan />,
+          }[component]
+        }
       </div>
-    </userInfo.Provider>
+    </div>
   );
 };
 
