@@ -61,6 +61,7 @@ const Admin = () => {
             + Add Subject
           </button>
         
+          <hr />
      
       <div className="row">
         {
